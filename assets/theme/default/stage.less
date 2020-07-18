@@ -1,0 +1,25 @@
+@import "component/color";
+@import "component/ribbon";
+.scene {
+  -fx-background-size: cover;
+
+  .scPane {
+    -fx-background-color: rgba(255,255,255,0.4);
+    .split-pane-divider{
+      -fx-background-color: rgba(0,0,0, 0.2);
+      -fx-padding: 0 1 0 1;
+    }
+  }
+
+  .tree-without-bg{
+    -fx-background-color: @noColor;
+    .tree-cell:empty {
+      -fx-background-color: @noColor;
+    }
+  }
+
+  .ribbon {
+    .ribbon();
+  }
+
+}

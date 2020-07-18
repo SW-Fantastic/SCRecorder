@@ -1,0 +1,74 @@
+@import "color";
+@import "widgets";
+.ribbon() {
+  -fx-background-color: rgba(255,255,255,1);
+  .header {
+    .toggle-button {
+      -fx-background-color: @noColor;
+      -fx-border-radius: 0;
+      -fx-background-radius: 0;
+      -fx-border-width: 0 0 2 0;
+      -fx-border-color: @noColor;
+      -fx-border-style: solid;
+      -fx-text-fill: @textPrimary;
+      &:selected {
+        -fx-border-color: @textPrimary;
+      }
+    }
+    .button {
+      -fx-border-radius: 6;
+      -fx-background-color: @noColor;
+      -fx-text-fill: @textPrimary;
+      -fx-border-width: 0.6;
+      -fx-border-style: dotted;
+      -fx-border-color: @noColor;
+      &:hover {
+        -fx-border-color: @textPrimary;
+      }
+    }
+  }
+  .ribbon-group {
+    -fx-border-width: 0 1 0 1;
+    -fx-border-style: solid;
+    -fx-border-color:  linear-gradient(to top,@ribbonTitle,@noColor 60%);
+    -fx-border-radius: 0 0 4 4;
+    .label {
+      -fx-text-fill: @secondColor;
+    }
+    .check-box {
+      .check-box(@secondColor);
+    }
+    .combo-box {
+      .combo-box(@secondColor,@textHighlight);
+    }
+    .text-field {
+      -fx-border-style: solid;
+      -fx-border-color: @secondColor;
+      -fx-text-fill: @secondColor;
+      -fx-border-width: 0 0 1.5 0;
+      -fx-background-color: @noColor;
+    }
+    .ribbon-button {
+      -fx-background-color: @noColor;
+      -fx-text-fill: @secondColor;
+      -fx-border-width: 1;
+      -fx-border-style: dashed;
+      -fx-border-color: rgba(114,78,145,0.2);
+      -fx-border-radius: 6;
+      .label {
+        -fx-text-fill: @secondColor;
+      }
+      &:hover{
+        -fx-border-color: @secondColor;
+        -fx-effect: dropshadow(three-pass-box,@textPrimary, 8, 0, 0, 0)
+      }
+    }
+    .ribbon-title {
+      -fx-background-color: @ribbonTitle;
+      -fx-background-radius: 0 0 4 4;
+      .label {
+        -fx-text-fill: @textHighlight;
+      }
+    }
+  }
+}

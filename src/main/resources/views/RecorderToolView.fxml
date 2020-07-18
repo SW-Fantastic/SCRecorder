@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="256.0" styleClass="ribbon-group" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.swdc.recorder.ui.controller.ribbon.RecordController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="24.0" prefWidth="227.0" styleClass="ribbon-title" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="录屏" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="record" fx:id="recordBtn" mnemonicParsing="false" onAction="#onRecord" prefHeight="48.0" prefWidth="48.0" styleClass="ribbon-button" text="录制" />
+            <Button id="stop" mnemonicParsing="false" onAction="#onStop" prefHeight="48.0" prefWidth="48.0" styleClass="ribbon-button" text="停止" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="128.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="录制时间：" />
+                        <Label fx:id="lblTimer" text="00:00" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="6.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TextField id="txtFileName" fx:id="txtFileName" promptText="文件名">
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="6.0" right="6.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="16.0" />
+         </padding>
+      </HBox>
+   </center>
+</BorderPane>

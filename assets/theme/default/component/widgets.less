@@ -1,0 +1,35 @@
+@import "color";
+.check-box(@color) {
+  -fx-text-fill: @color;
+  .box {
+    -fx-background-color: @noColor;
+    -fx-border-color: @color;
+    -fx-border-radius: 4;
+    -fx-border-style: dashed;
+  }
+  &:selected .mark {
+    -fx-background-color: @color;
+    -fx-effect: dropshadow(three-pass-box,@color, 8, 0, 0, 0);
+  }
+}
+.combo-box(@textColor, @background) {
+  -fx-border-color: @textColor;
+  -fx-border-style: solid;
+  -fx-border-width: 0 0 1.5 0;
+  -fx-background-color: @noColor;
+  .list-view {
+    -fx-text-fill: @textColor;
+    -fx-background-color: @background;
+    .list-cell:selected *{
+      -fx-text-fill: @background;
+      -fx-background-color: @textColor;
+    }
+    .list-cell:hover,.list-cell:focused{
+      -fx-text-fill: @background;
+      -fx-background-color: @textColor;
+    }
+    .list-cell:hover *,.list-cell:focused *{
+      -fx-text-fill: @background;
+    }
+  }
+}

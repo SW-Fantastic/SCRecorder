@@ -1,0 +1,116 @@
+.scene {
+  -fx-background-size: cover;
+}
+.scene .scPane {
+  -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+.scene .scPane .split-pane-divider {
+  -fx-background-color: rgba(0, 0, 0, 0.2);
+  -fx-padding: 0 1 0 1;
+}
+.scene .tree-without-bg {
+  -fx-background-color: rgba(255, 255, 255, 0);
+}
+.scene .tree-without-bg .tree-cell:empty {
+  -fx-background-color: rgba(255, 255, 255, 0);
+}
+.scene .ribbon {
+  -fx-background-color: #ffffff;
+}
+.scene .ribbon .header .toggle-button {
+  -fx-background-color: rgba(255, 255, 255, 0);
+  -fx-border-radius: 0;
+  -fx-background-radius: 0;
+  -fx-border-width: 0 0 2 0;
+  -fx-border-color: rgba(255, 255, 255, 0);
+  -fx-border-style: solid;
+  -fx-text-fill: #677db7;
+}
+.scene .ribbon .header .toggle-button:selected {
+  -fx-border-color: #677db7;
+}
+.scene .ribbon .header .button {
+  -fx-border-radius: 6;
+  -fx-background-color: rgba(255, 255, 255, 0);
+  -fx-text-fill: #677db7;
+  -fx-border-width: 0.6;
+  -fx-border-style: dotted;
+  -fx-border-color: rgba(255, 255, 255, 0);
+}
+.scene .ribbon .header .button:hover {
+  -fx-border-color: #677db7;
+}
+.scene .ribbon .ribbon-group {
+  -fx-border-width: 0 1 0 1;
+  -fx-border-style: solid;
+  -fx-border-color: linear-gradient(to top, #5299d3, rgba(255, 255, 255, 0) 60%);
+  -fx-border-radius: 0 0 4 4;
+}
+.scene .ribbon .ribbon-group .label {
+  -fx-text-fill: #724e91;
+}
+.scene .ribbon .ribbon-group .check-box {
+  -fx-text-fill: #724e91;
+}
+.scene .ribbon .ribbon-group .check-box .box {
+  -fx-background-color: rgba(255, 255, 255, 0);
+  -fx-border-color: #724e91;
+  -fx-border-radius: 4;
+  -fx-border-style: dashed;
+}
+.scene .ribbon .ribbon-group .check-box:selected .mark {
+  -fx-background-color: #724e91;
+  -fx-effect: dropshadow(three-pass-box, #724e91, 8, 0, 0, 0);
+}
+.scene .ribbon .ribbon-group .combo-box {
+  -fx-border-color: #724e91;
+  -fx-border-style: solid;
+  -fx-border-width: 0 0 1.5 0;
+  -fx-background-color: rgba(255, 255, 255, 0);
+}
+.scene .ribbon .ribbon-group .combo-box .list-view {
+  -fx-text-fill: #724e91;
+  -fx-background-color: #fffafb;
+}
+.scene .ribbon .ribbon-group .combo-box .list-view .list-cell:selected * {
+  -fx-text-fill: #fffafb;
+  -fx-background-color: #724e91;
+}
+.scene .ribbon .ribbon-group .combo-box .list-view .list-cell:hover,
+.scene .ribbon .ribbon-group .combo-box .list-view .list-cell:focused {
+  -fx-text-fill: #fffafb;
+  -fx-background-color: #724e91;
+}
+.scene .ribbon .ribbon-group .combo-box .list-view .list-cell:hover *,
+.scene .ribbon .ribbon-group .combo-box .list-view .list-cell:focused * {
+  -fx-text-fill: #fffafb;
+}
+.scene .ribbon .ribbon-group .text-field {
+  -fx-border-style: solid;
+  -fx-border-color: #724e91;
+  -fx-text-fill: #724e91;
+  -fx-border-width: 0 0 1.5 0;
+  -fx-background-color: rgba(255, 255, 255, 0);
+}
+.scene .ribbon .ribbon-group .ribbon-button {
+  -fx-background-color: rgba(255, 255, 255, 0);
+  -fx-text-fill: #724e91;
+  -fx-border-width: 1;
+  -fx-border-style: dashed;
+  -fx-border-color: rgba(114, 78, 145, 0.2);
+  -fx-border-radius: 6;
+}
+.scene .ribbon .ribbon-group .ribbon-button .label {
+  -fx-text-fill: #724e91;
+}
+.scene .ribbon .ribbon-group .ribbon-button:hover {
+  -fx-border-color: #724e91;
+  -fx-effect: dropshadow(three-pass-box, #677db7, 8, 0, 0, 0);
+}
+.scene .ribbon .ribbon-group .ribbon-title {
+  -fx-background-color: #5299d3;
+  -fx-background-radius: 0 0 4 4;
+}
+.scene .ribbon .ribbon-group .ribbon-title .label {
+  -fx-text-fill: #fffafb;
+}

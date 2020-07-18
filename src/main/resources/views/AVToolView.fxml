@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="316.0" styleClass="ribbon-group" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="23.0" prefWidth="290.0" styleClass="ribbon-title" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="录制" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="45.0" prefWidth="396.0">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="157.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="141.0" spacing="12.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="帧率：" />
+                              <TextField id="framerate" prefHeight="23.0" prefWidth="68.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="181.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="色彩模式：" />
+                        <ComboBox id="pixFormat" prefHeight="23.0" prefWidth="89.0">
+                           <HBox.margin>
+                              <Insets right="6.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="6.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

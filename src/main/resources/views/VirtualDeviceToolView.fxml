@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="226.0" styleClass="ribbon-group" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.swdc.recorder.ui.controller.ribbon.VirtualDeviceController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="24.0" prefWidth="200.0" styleClass="ribbon-title" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="虚拟设备" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="windows" mnemonicParsing="false" onAction="#installDshow" prefHeight="48.0" prefWidth="48.0" styleClass="ribbon-button" text="Win" />
+         </children>
+         <padding>
+            <Insets left="12.0" />
+         </padding>
+      </HBox>
+   </center>
+</BorderPane>

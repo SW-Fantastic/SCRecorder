@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="650.0" minWidth="1000.0" prefHeight="621.0" prefWidth="911.0" styleClass="scene" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.swdc.recorder.ui.controller.RecorderController">
+   <top>
+      <VBox prefHeight="153.0" prefWidth="911.0" styleClass="ribbon" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="855.0" spacing="12.0" styleClass="header" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button id="record-begin" mnemonicParsing="false" onAction="#startRecord" prefHeight="32.0" prefWidth="32.0" text="启" />
+                  <Button id="record-stop" mnemonicParsing="false" onAction="#stopRecord" prefHeight="32.0" prefWidth="32.0" text="停" />
+                  <ToggleButton id="record" mnemonicParsing="false" prefHeight="28.0" prefWidth="120.0" text="录制" />
+                  <ToggleButton id="avSetting" mnemonicParsing="false" prefHeight="28.0" prefWidth="120.0" text="音视频选项" />
+                  <ToggleButton id="system" mnemonicParsing="false" prefHeight="28.0" prefWidth="120.0" text="配置设置" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="16.0" right="16.0" />
+               </padding>
+            </HBox>
+            <HBox id="ribbonGroups" prefHeight="100.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding></HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.27832783278327833" prefHeight="160.0" prefWidth="200.0" styleClass="scPane" BorderPane.alignment="CENTER">
+         <items>
+            <TreeView minWidth="255.0" prefHeight="200.0" prefWidth="200.0">
+               <styleClass>
+                  <String fx:value="tree-without-bg" />
+                  <String fx:value="scPane" />
+               </styleClass>
+            </TreeView>
+            <BorderPane minWidth="740.0" prefHeight="200.0" prefWidth="200.0" styleClass="scPane" />
+         </items>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </SplitPane>
+   </center>
+</BorderPane>

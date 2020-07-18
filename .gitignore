@@ -1,0 +1,8 @@
+/libs/ffmpeg-all.jar
+/.idea/
+/libMediaSupport.dll
+/libSystemSupport.dll
+/recorder.iml
+/src/native/windows/.vs/
+/src/native/windows/Release/
+/src/native/windows/x64/
