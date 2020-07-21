@@ -48,8 +48,15 @@ public class RecorderTest {
         }
         avcodec.AVCodec sysAudioCodec = avcodec.avcodec_find_decoder(audioSteam.codecpar().codec_id());
         avcodec.AVCodecContext audioCtx = avcodec.avcodec_alloc_context3(sysAudioCodec);
+        avcodec.avcodec_parameters_to_context(audioCtx,audioSteam.codecpar());
         rst = avcodec.avcodec_open2(audioCtx,sysAudioCodec,new avutil.AVDictionary());
         if (rst < 0){
+            return;
+        }
+        avcodec.AVCodec decoder = avcodec.avcodec_find_decoder(audioSteam.codecpar().codec_id());
+        avcodec.AVCodecContext decoderCtx = avcodec.avcodec_alloc_context3(decoder);
+        rst = avcodec.avcodec_open2(decoderCtx,decoder,new avutil.AVDictionary());
+        if (rst < 0) {
             return;
         }
     }

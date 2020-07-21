@@ -2,6 +2,9 @@ package org.swdc.recorder.core;
 
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.*;
+import org.swdc.recorder.core.recorders.FFVideoContext;
+import org.swdc.recorder.core.recorders.RecorderConfig;
+import org.swdc.recorder.core.recorders.RecorderInfo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -96,6 +99,8 @@ public abstract class AbstractRecorder {
 
     private RecorderService service;
 
+    private long currentTime;
+
     public void pause() {
         pauseFlag.set(true);
     }
@@ -108,7 +113,9 @@ public abstract class AbstractRecorder {
         pauseFlag.set(false);
     }
 
-    public abstract long getRecordTimes();
+    public long getRecordTimes() {
+        return currentTime;
+    }
 
     public void setService(RecorderService service) {
         this.service = service;
@@ -122,7 +129,80 @@ public abstract class AbstractRecorder {
         return screenSize;
     }
 
-    public abstract void record(File file);
+    public abstract RecorderInfo getRecorderInfo();
+
+    public void record(File file){
+        RecorderInfo info = getRecorderInfo();
+        FFVideoContext videoContext = new FFVideoContext(file,info.getFormat(),info.getAddress(),getPixFormat());
+        videoContext.onCodecSetup(RecorderConfig.builder()
+                .width(getWidth() <= 0 ? (int)getScreenSize().getWidth() : getWidth())
+                .height(getHeight() <=0 ?(int)getScreenSize().getHeight(): getHeight())
+                .frameRate(getFrameRate())
+                .pixFormat(getPixFormat())
+                .bitRate(getBitRate())
+                .build());
+        if (videoContext.initializeContextForOutput()) {
+
+            long lastRecordTime = System.currentTimeMillis();
+
+            getService().disableUI(true);
+
+            avcodec.AVPacket packet = videoContext.getVideoPacket();
+            avutil.AVFrame frame = videoContext.getOriginalFrame();
+            avutil.AVFrame decodedFrame = videoContext.getDecodedFrame();
+            avformat.AVStream videoSteam = videoContext.getVideoSteam();
+            avcodec.AVCodecContext decoderContext = videoContext.getDecoderCtx();
+            avcodec.AVCodecContext codecContext = videoContext.getEncoderCtx();
+            swscale.SwsContext swsContext = videoContext.getSwsContext();
+            avformat.AVFormatContext outContext = videoContext.getOutputCtx();
+            avformat.AVStream stream = videoContext.getOutputStream();
+
+            recordingFlag.set(true);
+            int frameNum = 1;
+            while (recordingFlag.get()) {
+
+                if (pauseFlag.get()) {
+                    Thread.yield();
+                    continue;
+                }
+
+                int rs = avformat.av_read_frame(videoContext.getInputCtx(),videoContext.getVideoPacket());
+                if (rs < 0) {
+                    continue;
+                }
+                packet.pts(avutil.av_rescale_q_rnd(packet.pts(), videoSteam.time_base(), decoderContext.time_base(),avutil.AV_ROUND_NEAR_INF | avutil.AV_ROUND_PASS_MINMAX));
+                if (avcodec.avcodec_send_packet(decoderContext,packet) < 0) {
+                    continue;
+                }
+                if(avcodec.avcodec_receive_frame(decoderContext,frame) < 0) {
+                    continue;
+                }
+                swscale.sws_scale(swsContext,frame.data(),frame.linesize(),0,codecContext.height(),decodedFrame.data(),decodedFrame.linesize());
+
+                rs = avcodec.avcodec_send_frame(codecContext,decodedFrame);
+                if (rs < 0) {
+                    continue;
+                }
+                rs = avcodec.avcodec_receive_packet(codecContext,packet);
+                if (rs < 0){
+                    continue;
+                }
+                packet.dts(avutil.av_rescale_q_rnd(frameNum,codecContext.time_base(),stream.time_base(),avutil.AV_ROUND_NEAR_INF | avutil.AV_ROUND_PASS_MINMAX));
+                rs = avformat.av_interleaved_write_frame(outContext,packet);
+                if (rs < 0) {
+                    continue;
+                }
+                frameNum ++;
+                currentTime = currentTime + (System.currentTimeMillis() - lastRecordTime);
+                lastRecordTime = System.currentTimeMillis();
+            }
+            avformat.av_write_trailer(outContext);
+            videoContext.closeContext();
+            lastRecordTime = 0;
+            currentTime = 0;
+        }
+        getService().disableUI(false);
+    }
 
     public void stop() {
         recordingFlag.set(false);
