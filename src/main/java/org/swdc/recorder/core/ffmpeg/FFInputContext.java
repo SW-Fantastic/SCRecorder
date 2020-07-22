@@ -15,7 +15,7 @@ public class FFInputContext implements AutoCloseable {
     @Getter
     private avformat.AVStream audioStream;
 
-    public FFInputContext openWithDevice(String format, String address,String pixFormat) {
+    public FFInputContext openVideoInputDevice(String format, String address, String pixFormat) {
         avformat.AVInputFormat inputFormat = avformat.av_find_input_format(format);
         // 申请设备内存
         inputCtx = avformat.avformat_alloc_context();
@@ -37,8 +37,32 @@ public class FFInputContext implements AutoCloseable {
             this.close();
             return null;
         }
-        this.audioStream = findAudioStream(inputCtx);
         this.videoStream = findVideoStream(inputCtx);
+        return this;
+    }
+
+    public FFInputContext openAudioInputDevice(String format, String address) {
+        avformat.AVInputFormat inputFormat = avformat.av_find_input_format(format);
+        // 申请设备内存
+        inputCtx = avformat.avformat_alloc_context();
+        if (inputFormat == null || inputCtx == null || inputCtx.isNull()) {
+            this.close();
+            return null;
+        }
+        // 打开输入设备
+        avutil.AVDictionary dictionary = new avutil.AVDictionary();
+        int rst = avformat.avformat_open_input(inputCtx,address,inputFormat,dictionary);
+        if (rst < 0) {
+            this.close();
+            return null;
+        }
+        // 读取流信息
+        rst = avformat.avformat_find_stream_info(inputCtx,new avutil.AVDictionary(null));
+        if (rst < 0) {
+            this.close();
+            return null;
+        }
+        this.audioStream = findAudioStream(inputCtx);
         return this;
     }
 

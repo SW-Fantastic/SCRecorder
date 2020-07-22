@@ -37,6 +37,32 @@ public class FFDecodeCodec implements AutoCloseable {
         return this;
     }
 
+    public FFDecodeCodec openAudioInputCodec(FFInputContext context) {
+        avcodec.AVCodec codec = avcodec.avcodec_find_decoder(context.getAudioStream().codecpar().codec_id());
+        if (codec == null){
+            return null;
+        }
+        decoderCtx = avcodec.avcodec_alloc_context3(codec);
+        avformat.AVStream stream = context.getAudioStream();
+        if (stream == null) {
+            this.close();
+            return null;
+        }
+        int rst = avcodec.avcodec_parameters_to_context(decoderCtx,stream.codecpar());
+        if (rst < 0) {
+            this.close();
+            return null;
+        }
+        avutil.AVDictionary decoderOptions = new avutil.AVDictionary();
+        rst = avcodec.avcodec_open2(decoderCtx,codec,decoderOptions);
+        if (rst < 0) {
+            this.close();
+            return null;
+        }
+
+        return this;
+    }
+
     @Override
     public void close() {
         if (decoderCtx == null || decoderCtx.isNull()) {

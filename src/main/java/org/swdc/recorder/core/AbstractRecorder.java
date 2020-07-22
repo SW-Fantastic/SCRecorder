@@ -2,6 +2,7 @@ package org.swdc.recorder.core;
 
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.*;
+import org.swdc.recorder.core.ffmpeg.FFOutContext;
 import org.swdc.recorder.core.recorders.FFVideoContext;
 import org.swdc.recorder.core.recorders.RecorderConfig;
 import org.swdc.recorder.core.recorders.RecorderInfo;
@@ -133,15 +134,15 @@ public abstract class AbstractRecorder {
 
     public void record(File file){
         RecorderInfo info = getRecorderInfo();
-        FFVideoContext videoContext = new FFVideoContext(file,info.getFormat(),info.getAddress(),getPixFormat());
-        videoContext.onCodecSetup(RecorderConfig.builder()
+        FFVideoContext videoContext = new FFVideoContext(info.getFormat(),info.getAddress(),getPixFormat());
+        videoContext.videoCodecSetup(RecorderConfig.builder()
                 .width(getWidth() <= 0 ? (int)getScreenSize().getWidth() : getWidth())
                 .height(getHeight() <=0 ?(int)getScreenSize().getHeight(): getHeight())
                 .frameRate(getFrameRate())
                 .pixFormat(getPixFormat())
                 .bitRate(getBitRate())
                 .build());
-        if (videoContext.initializeContextForOutput()) {
+        if (videoContext.initializeContextForOutput(new FFOutContext().open(file))) {
 
             long lastRecordTime = System.currentTimeMillis();
 

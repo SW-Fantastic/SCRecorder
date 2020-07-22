@@ -4,13 +4,8 @@ import lombok.Getter;
 import org.bytedeco.javacpp.*;
 import org.swdc.recorder.core.ffmpeg.*;
 
-import java.io.File;
-import java.nio.DoubleBuffer;
-import java.util.function.Consumer;
-
 public class FFVideoContext {
 
-    private File file;
     private String deviceFormat;
     private String deviceAddr;
 
@@ -49,22 +44,24 @@ public class FFVideoContext {
     private RecorderConfig config;
 
 
-    public FFVideoContext(File file, String deviceFormat, String deviceAddr,String pixFormat) {
-        this.file = file;
+    public FFVideoContext(String deviceFormat, String deviceAddr,String pixFormat) {
         this.deviceFormat = deviceFormat;
         this.deviceAddr = deviceAddr;
         this.defaultFormatPix = pixFormat;
     }
 
-    public void onCodecSetup(RecorderConfig config) {
+    public void videoCodecSetup(RecorderConfig config) {
         this.config = config;
     }
 
-    public boolean initializeContextForOutput() {
+    public boolean initializeContextForOutput(FFOutContext ffOutContext) {
         int rst = 0;
+        if (ffOutContext == null){
+            return false;
+        }
         try {
             FFInputContext inputContext = new FFInputContext();
-            inputContext = inputContext.openWithDevice(deviceFormat,deviceAddr,defaultFormatPix);
+            inputContext = inputContext.openVideoInputDevice(deviceFormat,deviceAddr,defaultFormatPix);
             if (inputContext == null) {
                 rst = -1;
                 return false;
@@ -83,13 +80,6 @@ public class FFVideoContext {
                 return false;
             }
             decoderCtx = decodeCodec.getDecoderCtx();
-            // 打开输出设备（文件）
-            FFOutContext ffOutContext = new FFOutContext();
-            ffOutContext = ffOutContext.open(file);
-            if (ffOutContext == null) {
-                rst = -1;
-                return false;
-            }
 
             outputCtx = ffOutContext.getOutputCtx();
             FFEncodeCodec encodeCodec = new FFEncodeCodec();
